@@ -2,28 +2,27 @@ package edu.sdccd.cisc191.template;
 
 import java.util.Date;
 
-public class SurfReport {
-    private Date date;
+public class SurfReport {//begin class SurfReport
+    private Date date; // uses the data type Date
     private String report;
 
-    public SurfReport(Date date, String report) {
+    public SurfReport(Date date, String report) {//class constructor for class SurfReport
         this.date = date;
         this.report = report;
     }
-
-    public Date getDate() {
-        return date;
+    public void Testdate (){
+        System.out.print(date);
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+    public void setDate(Date date){
 
-    public String getReport() {
+    } //sets the date
+
+    public String getReport() {//returns the report
         return report;
     }
 
-    public void setReport(String report) {
+    public void setReport(String report) {// sets the report
         this.report = report;
     }
-}
+}//end class SurfReport

@@ -29,6 +29,9 @@ public class SurfLocation {
     }
 
     public void setSurfEnvironment(String surfEnvironment) {
+
         this.surfEnvironment = surfEnvironment;
     }
+
 }
+
