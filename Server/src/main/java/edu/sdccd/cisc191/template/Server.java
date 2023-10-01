@@ -1,10 +1,34 @@
 package edu.sdccd.cisc191.template;
 
-import java.net.*;
-import java.io.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import jdk.internal.org.objectweb.asm.Handle;
+
+import java.awt.*;
+import java.util.Collection;
+
+//for menu
+import javafx.scene.control.Control;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 
 
-public class Server {
+
+public class Server extends Application{
+
+
+    private static GUILabel message; // to hold the title of this GUI
+
 
     public static SurfLocation[][] surfLocations = new SurfLocation[5][5]; //creates an array of locations
     public static SurfReport[][] surfReports = new SurfReport[5][5]; //creates an array of surf reports
@@ -14,14 +38,15 @@ public class Server {
 
         loadSurfLocations();
         populateSurfLocations();
-       printSurfLocations(surfLocations);
-
-
+        printSurfLocations(surfLocations);
         loadSurfReports();
-       /*
-        for (int i = 0; i < surfReports.length; i++) {
-            System.out.println(surfReports[i]);
-        }*/
+        launch();//must extend Application
+        System.out.println(message);
+
+        //for (int i = 0; i < surfReports.length; i++) {
+           // System.out.println(surfReports[i]);
+        //}
+
     }
     public static void loadSurfLocations(){ //preloading with example
         surfLocations[0][0] = new SurfLocation("La Jolla Shores", false, "rocky cliffs");
@@ -80,4 +105,47 @@ public class Server {
 
 
     }
+    @Override
+    public void start(Stage stage) throws Exception {//begin method "start"
+        Canvas reportCanvas = new Canvas(); //calls Canvas constructor, returns object
+
+        message = new GUILabel();
+        message.setText("Select Your Surf Spot");
+        BorderPane borderPane= new BorderPane(); // I used variable borderPane, an instance object of a class, BorderPane
+        borderPane.setCenter(reportCanvas);
+        HBox headerHbox = new HBox(10,  message);
+        borderPane.setTop(headerHbox);
+
+        //menu
+        //Create menu
+        Menu SurfSpotMenu = new Menu("Location");
+        //create items for location menu
+        javafx.scene.control.MenuItem locationMenu1 = new javafx.scene.control.MenuItem("City of San Diego");
+        javafx.scene.control.MenuItem locationMenu2 = new javafx.scene.control.MenuItem( "San Diego County");
+        javafx.scene.control.MenuItem locationMenu3 = new javafx.scene.control.MenuItem( "Southern California");
+        //add items to menu
+        SurfSpotMenu.getItems().addAll(locationMenu1, locationMenu2, locationMenu3);
+
+        Menu EnvironmentMenu=new Menu("Environment");
+        //create items for environment menu
+        javafx.scene.control.MenuItem EnvironmentMenu1=new javafx.scene.control.MenuItem("Sandy Beach");
+        javafx.scene.control.MenuItem EnvironmentMenu2=new javafx.scene.control.MenuItem("Point Break");
+        javafx.scene.control.MenuItem EnvironmentMenu3 =new MenuItem("Pier");
+        // add items to menu
+        EnvironmentMenu.getItems().addAll(EnvironmentMenu1, EnvironmentMenu2, EnvironmentMenu3);
+        //create menu bar
+        MenuBar menuBar = new MenuBar(SurfSpotMenu, EnvironmentMenu);
+
+        borderPane.setLeft(menuBar);
+        //display menu
+
+
+        // create scene, stage, set title, and show
+        Scene scene = new Scene(borderPane, 300, 250);//created scene
+        stage.setScene(scene);// created stage
+        stage.setTitle("Surf Locations");//set title
+        stage.show();//created show
+
+    }//end method "start"
+
 } //end class Server
